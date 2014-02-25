@@ -1,20 +1,38 @@
-t=$(mktemp)
+#!/bin/sh
+# Based upon http://stackoverflow.com/a/21960296/4534
 
-parselistbucket () {
-	xmlstarlet sel -N w="http://s3.amazonaws.com/doc/2006-03-01/" -T -t -m "//w:Key" -v . -n
-}
+s3ns=http://s3.amazonaws.com/doc/2006-03-01/
 
-while read url
+while read s3url
 do
-	curl -s "$url" | parselistbucket >> $t
 
-while test $(($(wc -l < $t) % 1000)) -eq 0 # this should testing for IsTruncated="true"
-do
-	echo Need to go again with $(tail -n1 $t) from $t 1>&2
-	curl -s "$url/?marker=$(tail -n1 $t)" | parselistbucket >> $t
-done
+	i=0
+
+	s3get=$s3url
+
+	while :; do
+		curl -f -s $s3get > "listing$i.xml"
+		if test $? -ne 0
+		then
+			echo ERROR retrieving: $s3get 1>&2
+			break
+		fi
+		xml sel -N w="http://s3.amazonaws.com/doc/2006-03-01/" -T -t -m "//w:Key" -o "$s3url" -v . -n "listing$i.xml"
+		nextkey=$(xml sel -T -N "w=$s3ns" -t \
+			--if '/w:ListBucketResult/w:IsTruncated="true"' \
+			-v 'str:encode-uri(/w:ListBucketResult/w:Contents[last()]/w:Key, true())' \
+			-b -n "listing$i.xml")
+		# -b -n adds a newline to the result unconditionally, 
+		# this avoids the "no XPaths matched" message; $() drops newlines.
+
+		rm -f "listing$i.xml"
+
+		if [ -n "$nextkey" ] ; then
+			s3get=$s3get"?marker=$nextkey"
+			i=$((i+1))
+		else
+			break
+		fi
+	done
 
 done < buckets
-
-cat $t
-#rm -f $t
