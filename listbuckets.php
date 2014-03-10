@@ -5,9 +5,11 @@ if (empty($_POST["bucket"])) {
 	die("No buckets given.");
 }
 
-$b = implode("\n", $_POST["bucket"]);
-
-// print_r($b);
+if (is_array($_POST["bucket"])) {
+	$b = implode("\n", $_POST["bucket"]);
+} else {
+	$b = $_POST["bucket"];
+}
 
 if (! file_put_contents("bucket-test", $b)) {
 	die("No write permission.");

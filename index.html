@@ -6,7 +6,7 @@
 input[type=url] { padding: 10px; width: 800px; font-size: 26px; }
 ul { list-style-image: url('bucket.svg') }
 </style>
-<title>List bucket</title>
+<title>List bucket without key</title>
 </head>
 <body>
 <form action="listbuckets.php" method="POST">
@@ -25,6 +25,10 @@ li.innerHTML = "<li><input type=url name=bucket[]></li>";
 el.appendChild(li);
 }
 </script>
+
+<pre>
+curl -F "bucket=http://mr2011.s3.amazonaws.com/" http://s3.dabase.com/listbuckets.php
+</pre>
 
 </body>
 </html>
