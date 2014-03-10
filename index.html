@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+input[type=url] { padding: 10px; width: 800px; font-size: 26px; }
+ul { list-style-image: url('bucket.svg') }
+</style>
+<title>List bucket</title>
+</head>
+<body>
+<form action="listbuckets.php" method="POST">
+<ul id=buckets>
+<li><input type=url name=bucket[] value="http://mr2011.s3.amazonaws.com/"></li>
+</ul>
+<button onclick='addBucket(); return false;'>Add bucket</button>
+<input type=submit value="Index bucket">
+</form>
+
+<script>
+function addBucket() {
+var el = document.getElementById('buckets');
+var li = document.createElement('li');
+li.innerHTML = "<li><input type=url name=bucket[]></li>";
+el.appendChild(li);
+}
+</script>
+
+</body>
+</html>
