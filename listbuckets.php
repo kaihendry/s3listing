@@ -11,10 +11,15 @@ if (is_array($_POST["bucket"])) {
 	$b = $_POST["bucket"];
 }
 
-if (! file_put_contents("bucket-test", $b)) {
+$b = explode(" ", $b);
+$b = implode("\n", $b);
+
+$temp = tempnam("/tmp", $_SERVER['REMOTE_ADDR']);
+
+if (! file_put_contents($temp, $b)) {
 	die("No write permission.");
 }
 
-passthru("cat bucket-test | uniq | ./listing.sh");
+passthru("cat $temp | uniq | ./listing.sh");
 
 ?>

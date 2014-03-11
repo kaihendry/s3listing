@@ -8,7 +8,11 @@ do
 
 	test "$s3url" || continue
 	i=0
-	s3get=$s3url
+
+	# Normalise URL
+	s3url=$(curl $s3url -s -L -I -o /dev/null -w '%{url_effective}')
+
+	s3get=$s3url # s3get gets marker requests appended to it
 
 	while :; do
 		curl -f -s $s3get > "listing$i.xml"
