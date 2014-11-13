@@ -3,16 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <title>List public S3 buckets</title>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<meta name="description" content="List a S3 bucket with public listing permissions" />
 <link rel=icon href=bucket.svg sizes="any" type="image/svg+xml">
 <style>
-input[type=url] { padding: 10px; width: 800px; font-size: 26px; }
+body { font-size: 1.2em; font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif }
+input[type=url] { padding: 0.2em; width: 25em; font-size: 1.5em; }
 ul { list-style-image: url('bucket.svg') }
 </style>
 </head>
 <body>
 <form action="listbuckets.php" method="POST">
 <ul id=buckets>
-<li><input type=url name=bucket[] value="http://mr2011.s3.amazonaws.com/"></li>
+<li><input type=url name=bucket[] value="https://s3-ap-southeast-1.amazonaws.com/listme/"></li>
 </ul>
 <button onclick='addBucket(); return false;'>Add bucket</button>
 <input type=submit value="Index bucket">
@@ -27,9 +30,18 @@ el.appendChild(li);
 }
 </script>
 
+<h3>Can be command line driven</h3>
 <pre>
-curl -F "bucket=http://mr2011.s3.amazonaws.com/" http://s3.dabase.com/listbuckets.php
-curl -F "bucket=https://s3-ap-southeast-1.amazonaws.com/cam.hackerspace.sg/" http://s3.dabase.com/listbuckets.php &gt; /tmp/out.txt
+curl -F "bucket=http://listme.s3.amazonaws.com/" http://s3.dabase.com/listbuckets.php
+</pre>
+<p>or</p>
+<pre>
+$ git clone https://github.com/kaihendry/s3listing.git
+$ cd s3listing/
+$ echo http://listme.s3-ap-southeast-1.amazonaws.com/ | ./listing.sh
+http://listme.s3-ap-southeast-1.amazonaws.com/bbc.png
+http://listme.s3-ap-southeast-1.amazonaws.com/gu.png
+http://listme.s3-ap-southeast-1.amazonaws.com/nyt.png
 </pre>
 
 <p><a href=https://github.com/kaihendry/s3listing>Source code</a></p>
