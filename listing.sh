@@ -32,7 +32,7 @@ do
 		rm -f "listing$i.xml"
 
 		if [ -n "$nextkey" ] ; then
-			s3get=$s3get"?marker=$nextkey"
+			s3get=$(echo $s3get | sed "s/[?].*//")"?marker=$nextkey"
 			i=$((i+1))
 		else
 			break
