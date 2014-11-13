@@ -2,11 +2,12 @@
 <html>
 <head>
 <meta charset="utf-8" />
+<title>List public S3 buckets</title>
+<link rel=icon href=bucket.svg sizes="any" type="image/svg+xml">
 <style>
 input[type=url] { padding: 10px; width: 800px; font-size: 26px; }
 ul { list-style-image: url('bucket.svg') }
 </style>
-<title>List public S3 buckets</title>
 </head>
 <body>
 <form action="listbuckets.php" method="POST">
@@ -28,6 +29,7 @@ el.appendChild(li);
 
 <pre>
 curl -F "bucket=http://mr2011.s3.amazonaws.com/" http://s3.dabase.com/listbuckets.php
+curl -F "bucket=https://s3-ap-southeast-1.amazonaws.com/cam.hackerspace.sg/" http://s3.dabase.com/listbuckets.php &gt; /tmp/out.txt
 </pre>
 
 <p><a href=https://github.com/kaihendry/s3listing>Source code</a></p>
