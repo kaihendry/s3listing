@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/dash
 # Based upon http://stackoverflow.com/a/21960296/4534
 
 s3ns=http://s3.amazonaws.com/doc/2006-03-01/
@@ -21,7 +21,7 @@ do
 			echo ERROR $? retrieving: $s3get 1>&2
 			break
 		fi
-		xml sel -N w="http://s3.amazonaws.com/doc/2006-03-01/" -T -t -m "//w:Key" -o "$s3url" -v . -n "listing$i.xml"
+		xml sel -N w="http://s3.amazonaws.com/doc/2006-03-01/" -T -t -m "//w:Key" -o "${s3url%/}/" -v . -n "listing$i.xml"
 		nextkey=$(xml sel -T -N "w=$s3ns" -t \
 			--if '/w:ListBucketResult/w:IsTruncated="true"' \
 			-v 'str:encode-uri(/w:ListBucketResult/w:Contents[last()]/w:Key, true())' \
