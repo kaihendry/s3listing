@@ -15,7 +15,7 @@ ul { list-style-image: url('bucket.svg') }
 <body>
 <form action="listbuckets.php" method="POST">
 <ul id=buckets>
-<li><input type=url name=bucket[] value="https://s3-ap-southeast-1.amazonaws.com/listme/"></li>
+<li><input type=url name=bucket[] value="https://s3-ap-southeast-1.amazonaws.com/cam.hackerspace.sg"></li>
 </ul>
 <button onclick='addBucket(); return false;'>Add bucket</button>
 <input type=submit value="Index bucket">
@@ -32,16 +32,13 @@ el.appendChild(li);
 
 <h3>Can be command line driven</h3>
 <pre>
-curl -F "bucket=http://listme.s3.amazonaws.com/" http://s3.dabase.com/listbuckets.php
+curl -F "bucket=https://s3-ap-southeast-1.amazonaws.com/cam.hackerspace.sg" http://s3.dabase.com/listbuckets.php
 </pre>
 <p>or</p>
 <pre>
 $ git clone https://github.com/kaihendry/s3listing.git
 $ cd s3listing/
-$ echo http://listme.s3-ap-southeast-1.amazonaws.com/ | ./listing.sh
-http://listme.s3-ap-southeast-1.amazonaws.com/bbc.png
-http://listme.s3-ap-southeast-1.amazonaws.com/gu.png
-http://listme.s3-ap-southeast-1.amazonaws.com/nyt.png
+$ echo https://s3-ap-southeast-1.amazonaws.com/cam.hackerspace.sg | ./listing.sh
 </pre>
 
 <p><a href=https://github.com/kaihendry/s3listing>Source code</a></p>
