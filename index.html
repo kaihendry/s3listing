@@ -44,7 +44,17 @@ $ cd s3listing/
 $ https://s3-ap-southeast-1.amazonaws.com/archpi.dabase.com | ./listing.sh
 </pre>
 
-<h3><a href=http://s.natalian.org/2015-10-17/1445092754_958x548.png>Permission denied</a>?</h3>
+<h3>What is the bucket URL?</h3>
+
+<p>Using the bucket <code>s3://archpi.dabase.com</code> as an example</p>
+
+<p><a
+	href="http://s3.amazonaws.com/archpi.dabase.com">http://s3.amazonaws.com/archpi.dabase.com</a>
+will redirect to <a
+ href="http://archpi.dabase.com.s3.amazonaws.com/">http://archpi.dabase.com.s3.amazonaws.com/</a>,
+though to get the https URL I found you need to know the region.</p> <h3><a
+href=http://s.natalian.org/2015-10-17/1445092754_958x548.png>Permission
+denied</a>?</h3>
 
 <pre>
 aws s3api put-bucket-acl --bucket archpi.dabase.com --acl public-read
