@@ -15,7 +15,7 @@ ul { list-style-image: url('bucket.svg') }
 <body>
 <form action="listbuckets.php" method="POST">
 <ul id=buckets>
-<li><input type=url name=bucket[] value="https://s3-ap-southeast-1.amazonaws.com/cam.hackerspace.sg"></li>
+<li><input type=url name=bucket[] value="https://s3-ap-southeast-1.amazonaws.com/archpi.dabase.com"></li>
 </ul>
 <button onclick='addBucket(); return false;'>Add bucket</button>
 <input type=submit value="Index bucket">
@@ -31,14 +31,23 @@ el.appendChild(li);
 </script>
 
 <h3>Can be command line driven</h3>
+
+<p>Using the bucket <code>s3://archpi.dabase.com</code> as an example</p>
+
 <pre>
-curl -F "bucket=https://s3-ap-southeast-1.amazonaws.com/cam.hackerspace.sg" http://s3.dabase.com/listbuckets.php
+curl -F "bucket=https://s3-ap-southeast-1.amazonaws.com/archpi.dabase.com" http://s3.dabase.com/listbuckets.php
 </pre>
 <p>or</p>
 <pre>
 $ git clone https://github.com/kaihendry/s3listing.git
 $ cd s3listing/
-$ echo https://s3-ap-southeast-1.amazonaws.com/cam.hackerspace.sg | ./listing.sh
+$ https://s3-ap-southeast-1.amazonaws.com/archpi.dabase.com | ./listing.sh
+</pre>
+
+<h3><a href=http://s.natalian.org/2015-10-17/1445092754_958x548.png>Permission denied</a>?</h3>
+
+<pre>
+aws s3api put-bucket-acl --bucket archpi.dabase.com --acl public-read
 </pre>
 
 <p><a href=https://github.com/kaihendry/s3listing>Source code</a></p>

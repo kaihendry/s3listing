@@ -1,14 +1,14 @@
 <?php
 header("Content-Type: text/plain");
 
-if (empty($_POST["bucket"])) {
+if (empty($_REQUEST["bucket"])) {
 	die("No buckets given.");
 }
 
-if (is_array($_POST["bucket"])) {
-	$b = implode("\n", $_POST["bucket"]);
+if (is_array($_REQUEST["bucket"])) {
+	$b = implode("\n", $_REQUEST["bucket"]);
 } else {
-	$b = $_POST["bucket"];
+	$b = $_REQUEST["bucket"];
 }
 
 $b = explode(" ", $b);
